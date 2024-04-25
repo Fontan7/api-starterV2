@@ -3,15 +3,15 @@ externalDocs:
   url: https://swagger.io/resources/open-api/
 info:
   contact:
-    email: TODO
+    email: TODO@gmail.com
     name: API Support
-    url: TODO
-  description: description
+    url: https://TODO.com
+  description: app description
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   termsOfService: http://swagger.io/terms/
-  title: api-starterV2 API
+  title: api-starterV2
   version: "0.1"
 paths:
   /health:
@@ -22,11 +22,29 @@ paths:
       responses:
         "200":
           description: OK
+          schema:
+            type: string
         "500":
           description: Internal Server Error
       summary: Health check
       tags:
       - health
+  /v1/public/get-something/:id:
+    get:
+      description: Using postgres Gets a public entity from the db and returns it
+        plain
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+      summary: Gets something public from the database
+      tags:
+      - get
 securityDefinitions:
   BasicAuth:
     type: basic

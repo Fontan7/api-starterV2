@@ -12,8 +12,8 @@ const docTemplate = `{
         "termsOfService": "http://swagger.io/terms/",
         "contact": {
             "name": "API Support",
-            "url": "TODO",
-            "email": "TODO"
+            "url": "https://TODO.com",
+            "email": "TODO@gmail.com"
         },
         "license": {
             "name": "Apache 2.0",
@@ -36,7 +36,33 @@ const docTemplate = `{
                 "summary": "Health check",
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/v1/public/get-something/:id": {
+            "get": {
+                "description": "Using postgres Gets a public entity from the db and returns it plain",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "get"
+                ],
+                "summary": "Gets something public from the database",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     "500": {
                         "description": "Internal Server Error"
@@ -62,8 +88,8 @@ var SwaggerInfo = &swag.Spec{
 	Host:             "",
 	BasePath:         "",
 	Schemes:          []string{},
-	Title:            "api-starterV2 API",
-	Description:      "description",
+	Title:            "api-starterV2",
+	Description:      "app description",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 	LeftDelim:        "{{",

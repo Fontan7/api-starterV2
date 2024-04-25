@@ -7,15 +7,14 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// ShowAccount godoc
-//	@Summary		Health check
-//	@Description	always returns OK
-//	@Tags			health
-//	@Produce		json
-//	@Success		200	{object}	string
-//	@Success		200
-//	@Failure		500
-//	@Router			/health [get]
+// HealthCheck godoc
+// @Summary		Health check
+// @Description	always returns OK
+// @Tags			health
+// @Produce		json
+// @Success		200	{object}	string
+// @Failure		500
+// @Router			/health [get]
 func handleHealthCheck(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"status": "ok",
@@ -23,6 +22,14 @@ func handleHealthCheck(c *gin.Context) {
 	})
 }
 
+// HealthCheck godoc
+// @Summary		Gets something public from the database
+// @Description	Using postgres Gets a public entity from the db and returns it plain
+// @Tags			get
+// @Produce		json
+// @Success		200	{object}	string
+// @Failure		500
+// @Router			/v1/public/get-something/:id [get]
 func handleGetPublicSomething(c *gin.Context, app types.App) {
 	pg := app.DB().PgStore
 

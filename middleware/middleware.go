@@ -1,7 +1,6 @@
 package middleware
 
 import (
-	"api-starterV2/types"
 	"fmt"
 	"log"
 	"net/http"
@@ -10,13 +9,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt"
 )
-
-func SetApp(app types.App) gin.HandlerFunc {
-	return func(c *gin.Context) {
-		c.Set("app", app)
-		c.Next()
-	}
-}
 
 func CorsConfig() gin.HandlerFunc {
 	return func(c *gin.Context) {

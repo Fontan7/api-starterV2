@@ -9,19 +9,17 @@ import (
 	"api-starterV2/types"
 )
 
-//	@title			api-starterV2 API
+//	@title			api-starterV2
 //	@version		0.1
-//	@description	description
+//	@description	app description
 //	@termsOfService	http://swagger.io/terms/
 
 //	@contact.name	API Support
-//	@contact.url	TODO
-//	@contact.email	TODO
+//	@contact.url	https://TODO.com
+//	@contact.email	TODO@gmail.com
 
 //	@license.name	Apache 2.0
 //	@license.url	http://www.apache.org/licenses/LICENSE-2.0.html
-
-//	@servers	/projectname/v1
 
 //	@securityDefinitions.basic	BasicAuth
 
@@ -34,8 +32,6 @@ func main() {
 	}
 	defer storage.CloseAll()
 
-
-	
 	app, err := types.NewApp(db)
 	if err != nil {
 		log.Fatalf("app layer error: %v", err)

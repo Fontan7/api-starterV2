@@ -4,6 +4,8 @@ import (
 	"api-starterV2/middleware"
 	"api-starterV2/types"
 
+	_ "api-starterV2/docs"
+
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -12,7 +14,6 @@ import (
 // InitRouter initializes and returns a new Gin engine with configured routes.
 func InitRouter(app types.App) *gin.Engine {
 	router := gin.Default()
-	router.Use(middleware.SetApp(app))
 	router.Use(middleware.CorsConfig())
 	defineRoutes(router, app)
 	return router
@@ -50,7 +51,7 @@ func defineV1Routes(rg *gin.RouterGroup, app types.App) {
 
 // definePublicRoutes registers public routes. /v1/public/...
 func definePublicRoutesV1(rg *gin.RouterGroup, app types.App) {
-	rg.GET("/:id", func(c *gin.Context) { handleGetPublicSomething(c, app) })
+	rg.GET("/get-something/:id", func(c *gin.Context) { handleGetPublicSomething(c, app) })
 }
 
 // definePrivateRoutes registers private routes requiring authentication.
