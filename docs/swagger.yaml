@@ -1,0 +1,33 @@
+externalDocs:
+  description: OpenAPI
+  url: https://swagger.io/resources/open-api/
+info:
+  contact:
+    email: TODO
+    name: API Support
+    url: TODO
+  description: description
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: api-starterV2 API
+  version: "0.1"
+paths:
+  /health:
+    get:
+      description: always returns OK
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "500":
+          description: Internal Server Error
+      summary: Health check
+      tags:
+      - health
+securityDefinitions:
+  BasicAuth:
+    type: basic
+swagger: "2.0"
