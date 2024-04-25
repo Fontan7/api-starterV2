@@ -88,20 +88,33 @@ func ValidateAndSetToken() gin.HandlerFunc {
 
 func ErrorLogger() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		// Before calling the handler
-		c.Next()
+		c.Next() // Continue processing the request
 
-		// Check if there are any errors
+		// If errors are present after processing
 		if len(c.Errors) > 0 {
+			var errors []map[string]interface{}
+
 			for _, err := range c.Errors {
-				// Log the details of the error
+				// Log each error
 				log.Printf("Time: %s, URL: %s, Error: %s, HTTP Code: %d\n",
-					time.Now().Format(time.RFC3339), // Time of the error
-					c.Request.URL.String(),          // URL requested
-					err.Error(),                     // Error message
-					c.Writer.Status(),               // HTTP status code
+					time.Now().Format(time.RFC3339),
+					c.Request.URL.String(),
+					err.Error(),
+					c.Writer.Status(),
 				)
+				// Add the error to the slice for JSON response
+				errors = append(errors, map[string]interface{}{
+					"time":       time.Now().Format(time.RFC3339),
+					"url":        c.Request.URL.String(),
+					"error":      err.Error(),
+					"httpStatus": c.Writer.Status(),
+				})
 			}
+
+			// Respond with all logged errors in JSON format
+			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+				"errors": errors,
+			})
 		}
 	}
 }

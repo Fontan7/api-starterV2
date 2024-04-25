@@ -14,6 +14,7 @@ import (
 // InitRouter initializes and returns a new Gin engine with configured routes.
 func InitRouter(app types.App) *gin.Engine {
 	router := gin.Default()
+	router.Use(middleware.ErrorLogger())
 	router.Use(middleware.CorsConfig())
 	defineRoutes(router, app)
 	return router

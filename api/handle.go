@@ -2,6 +2,7 @@ package api
 
 import (
 	"api-starterV2/types"
+	"errors"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -16,6 +17,11 @@ import (
 // @Failure		500
 // @Router			/health [get]
 func handleHealthCheck(c *gin.Context) {
+	if true {
+		c.Error(errors.New("non fatal error"))
+		c.AbortWithError(http.StatusInternalServerError, errors.New("a fatal error"))
+	}
+
 	c.JSON(http.StatusOK, gin.H{
 		"status": "ok",
 		"code":   http.StatusOK,
