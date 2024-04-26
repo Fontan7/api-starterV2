@@ -6,7 +6,6 @@ import (
 	"os"
 	"sync"
 
-	"github.com/gin-gonic/gin"
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
 )
@@ -16,11 +15,6 @@ type DB struct {
 	PgStore *PgStore
     //Mongo
 }
-
-type Storer interface {
-	GetSomethingByID(*gin.Context, int) string
-}
-
 
 var dbInstance *DB
 

@@ -86,7 +86,7 @@ func ValidateAndSetToken() gin.HandlerFunc {
 	}
 }
 
-func ErrorLogger() gin.HandlerFunc {
+func ErrorManager() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		c.Next() // Continue processing the request
 
@@ -112,7 +112,7 @@ func ErrorLogger() gin.HandlerFunc {
 			}
 
 			// Respond with all logged errors in JSON format
-			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+			c.AbortWithStatusJSON(c.Writer.Status(), gin.H{
 				"errors": errors,
 			})
 		}

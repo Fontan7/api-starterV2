@@ -2,7 +2,6 @@ package api
 
 import (
 	"api-starterV2/middleware"
-	"api-starterV2/types"
 
 	_ "api-starterV2/docs"
 
@@ -12,16 +11,17 @@ import (
 )
 
 // InitRouter initializes and returns a new Gin engine with configured routes.
-func InitRouter(app types.App) *gin.Engine {
+func InitRouter(app App) *gin.Engine {
+	gin.SetMode(app.GinMode())
 	router := gin.Default()
-	router.Use(middleware.ErrorLogger())
+	router.Use(middleware.ErrorManager())
 	router.Use(middleware.CorsConfig())
 	defineRoutes(router, app)
 	return router
 }
 
 // defineRoutes sets up routes and their corresponding groups.
-func defineRoutes(router *gin.Engine, app types.App) {
+func defineRoutes(router *gin.Engine, app App) {
 	registerHealthAndSwaggerRoutes(router)
 	registerAPIRoutes(router, app)
 }
@@ -33,7 +33,7 @@ func registerHealthAndSwaggerRoutes(router *gin.Engine) {
 }
 
 // registerAPIRoutes sets up API versioning and their specific routes.
-func registerAPIRoutes(router *gin.Engine, app types.App) {
+func registerAPIRoutes(router *gin.Engine, app App) {
 	router.Use(middleware.CheckAPIKey(app.ClientKey())) // API key check middleware
 
 	v1 := router.Group("/v1")
@@ -41,7 +41,7 @@ func registerAPIRoutes(router *gin.Engine, app types.App) {
 }
 
 // defineV1Routes registers routes for API version 1.
-func defineV1Routes(rg *gin.RouterGroup, app types.App) {
+func defineV1Routes(rg *gin.RouterGroup, app App) {
 	public := rg.Group("/public")
 	definePublicRoutesV1(public, app)
 
@@ -51,11 +51,11 @@ func defineV1Routes(rg *gin.RouterGroup, app types.App) {
 }
 
 // definePublicRoutes registers public routes. /v1/public/...
-func definePublicRoutesV1(rg *gin.RouterGroup, app types.App) {
+func definePublicRoutesV1(rg *gin.RouterGroup, app App) {
 	rg.GET("/get-something/:id", func(c *gin.Context) { handleGetPublicSomething(c, app) })
 }
 
 // definePrivateRoutes registers private routes requiring authentication.
-func definePrivateRoutesV1(rg *gin.RouterGroup, app types.App) {
+func definePrivateRoutesV1(rg *gin.RouterGroup, app App) {
 	rg.GET("/user/home", func(c *gin.Context) { handleGetPrivateSomething(c, app) })
 }

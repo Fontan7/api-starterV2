@@ -9,8 +9,10 @@ type PgStore struct {
 	pool *pgxpool.Pool
 }
 
-func newPgStore(pool *pgxpool.Pool) *PgStore{
-	return &PgStore{pool: pool}
+type PgPublic interface {
+	GetSomethingByID(*gin.Context, int) string
 }
- 
-func (pg *PgStore) GetSomethingByID(c *gin.Context, id int) string {return "hello bitch"}
+
+func newPgStore(pool *pgxpool.Pool) *PgStore { return &PgStore{pool: pool} }
+
+func (pg *PgStore) GetSomethingByID(c *gin.Context, id int) string { return "hello bitch" }

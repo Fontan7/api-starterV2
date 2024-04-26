@@ -1,4 +1,4 @@
-package types
+package api
 
 import (
 	"api-starterV2/storage"
@@ -21,6 +21,7 @@ type App interface {
 	ClientKey() string
 	JwtKey() string
 	Host() string
+	GinMode() string
 	DB() *storage.DB
 }
 
@@ -32,6 +33,7 @@ type app struct {
 	clientKey            string
 	jwtKey               string
 	host                 string
+	ginMode              string
 	db                   *storage.DB
 }
 
@@ -70,6 +72,8 @@ func NewApp(db *storage.DB) (App, error) {
 		return nil, fmt.Errorf("SERVER_HOST variable is empty")
 	}
 
+	ginMode := os.Getenv("GIN_MODE")
+
 	fmt.Println("Successfully loaded app environment variables")
 	return &app{
 		env:                  env,
@@ -79,6 +83,7 @@ func NewApp(db *storage.DB) (App, error) {
 		clientKey:            clientKey,
 		jwtKey:               jwtKey,
 		host:                 host,
+		ginMode:              ginMode,
 		db:                   db,
 	}, nil
 }
@@ -90,4 +95,5 @@ func (a *app) SupaProjectReference() string { return a.supaProjectReference }
 func (a *app) ClientKey() string            { return a.clientKey }
 func (a *app) JwtKey() string               { return a.jwtKey }
 func (a *app) Host() string                 { return a.host }
+func (a *app) GinMode() string              { return a.ginMode }
 func (a *app) DB() *storage.DB              { return a.db }

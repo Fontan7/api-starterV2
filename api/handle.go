@@ -1,7 +1,6 @@
 package api
 
 import (
-	"api-starterV2/types"
 	"errors"
 	"net/http"
 
@@ -20,6 +19,7 @@ func handleHealthCheck(c *gin.Context) {
 	if true {
 		c.Error(errors.New("non fatal error"))
 		c.AbortWithError(http.StatusInternalServerError, errors.New("a fatal error"))
+		return
 	}
 
 	c.JSON(http.StatusOK, gin.H{
@@ -36,7 +36,7 @@ func handleHealthCheck(c *gin.Context) {
 // @Success		200	{object}	string
 // @Failure		500
 // @Router			/v1/public/get-something/:id [get]
-func handleGetPublicSomething(c *gin.Context, app types.App) {
+func handleGetPublicSomething(c *gin.Context, app App) {
 	pg := app.DB().PgStore
 
 	result := pg.GetSomethingByID(c, 1)
@@ -47,4 +47,4 @@ func handleGetPublicSomething(c *gin.Context, app types.App) {
 	})
 }
 
-func handleGetPrivateSomething(c *gin.Context, app types.App) {}
+func handleGetPrivateSomething(c *gin.Context, app App) {}

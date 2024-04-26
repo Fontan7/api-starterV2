@@ -6,7 +6,6 @@ import (
 
 	"api-starterV2/api"
 	"api-starterV2/storage"
-	"api-starterV2/types"
 )
 
 //	@title			api-starterV2
@@ -32,7 +31,7 @@ func main() {
 	}
 	defer storage.CloseAll()
 
-	app, err := types.NewApp(db)
+	app, err := api.NewApp(db)
 	if err != nil {
 		log.Fatalf("app layer error: %v", err)
 	}
